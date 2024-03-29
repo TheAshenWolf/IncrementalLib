@@ -125,7 +125,7 @@ The returned string will be formatted as follows:
 - `Scientific` - Scientific notation
 ```csharp
     Incremental incremental = new Incremental(1, 3); // 1,000
-    string formatted = incremental.ToString(DisplaySetting.Scientific); // 1.000e3
+    string formatted = incremental.ToString(DisplaySetting.Scientific); // 1e3
 ```
 
 ### Internal methods
