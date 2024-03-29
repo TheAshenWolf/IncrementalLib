@@ -25,16 +25,40 @@
       result.Add(b);
       return result;
     }
+
+    /// <summary>
+    /// Adds a double <paramref name="a"/> and an Incremental <paramref name="b"/>.
+    /// (Does not modify the original Incremental, creates a new one)
+    /// </summary>
+    /// <returns>New Incremental with the result</returns>
+    public static Incremental operator +(double a, Incremental b)
+    {
+      Incremental result = new Incremental(b.Value, b.Exponent);
+      result.Add(a);
+      return result;
+    }
     
     /// <summary>
     /// Adds an integer <paramref name="b"/> to an Incremental <paramref name="a"/>.
-    /// (Does not modify the original Incrementals, creates a new one)
+    /// (Does not modify the original Incremental, creates a new one)
     /// </summary>
     /// <returns>New Incremental with the result</returns>
     public static Incremental operator +(Incremental a, int b)
     {
       Incremental result = new Incremental(a.Value, a.Exponent);
       result.Add(b);
+      return result;
+    }
+
+    /// <summary>
+    /// Adds an integer <paramref name="a"/> and an Incremental <paramref name="b"/>.
+    /// (Does not modify the original Incremental, creates a new one)
+    /// </summary>
+    /// <returns>New Incremental with the result</returns>
+    public static Incremental operator +(int a, Incremental b)
+    {
+      Incremental result = new Incremental(b.Value, b.Exponent);
+      result.Add(a);
       return result;
     }
     
@@ -75,6 +99,18 @@
     }
 
     /// <summary>
+    /// Multiplies double <paramref name="a"/> and an Incremental <paramref name="b"/>.
+    /// (Does not modify the original Incremental, creates a new one)
+    /// </summary>
+    /// <returns>New Incremental with the result</returns>
+    public static Incremental operator *(double a, Incremental b)
+    {
+      Incremental result = new Incremental(b.Value, b.Exponent);
+      result.Multiply(a);
+      return result;
+    }
+
+    /// <summary>
     /// Multiplies Incremental <paramref name="a"/> by an integer <paramref name="b"/>.
     /// (Does not modify the original Incremental, creates a new one)
     /// </summary>
@@ -83,6 +119,18 @@
     {
       Incremental result = new Incremental(a.Value, a.Exponent);
       result.Multiply(b);
+      return result;
+    }
+
+    /// <summary>
+    /// Multiplies integer <paramref name="a"/> and an Incremental <paramref name="b"/>.
+    /// (Does not modify the original Incremental, creates a new one)
+    /// </summary>
+    /// <returns>New Incremental with the result</returns>
+    public static Incremental operator *(int a, Incremental b)
+    {
+      Incremental result = new Incremental(b.Value, b.Exponent);
+      result.Multiply(a);
       return result;
     }
     
@@ -109,9 +157,18 @@
       result.Divide(b);
       return result;
     }
-    
-    
-    
-    
+
+    /// <summary>
+    /// Divides Incremental <paramref name="a"/> by an int <paramref name="b"/>.
+    /// This is not an integer division.
+    /// (Does not modify the original Incremental, creates a new one)
+    /// </summary>
+    /// <returns>New Incremental with the result</returns>
+    public static Incremental operator /(Incremental a, int b)
+    {
+      Incremental result = new Incremental(a.Value, a.Exponent);
+      result.Divide(b);
+      return result;
+    }
   }
 }

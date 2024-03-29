@@ -33,7 +33,13 @@ namespace IncrementalLib
     /// </summary>
     public static bool operator ==(Incremental a, Incremental b)
     {
-      return a?.Equals(b) ?? b is null;
+      if (ReferenceEquals(a, b)) return true;
+      if (a is null || b is null) return false;
+
+      a.Normalize();
+      b.Normalize();
+
+      return a.Value.Equals(b.Value) && a.Exponent == b.Exponent && a.Negative == b.Negative;
     }
     
     /// <summary>
@@ -50,6 +56,9 @@ namespace IncrementalLib
     public static bool operator >(Incremental a, Incremental b)
     {
       if (a is null || b is null) return false;
+
+      a.Normalize();
+      b.Normalize();
 
       // Simple comparison for different signs
       if (a.Negative && !b.Negative) return false;

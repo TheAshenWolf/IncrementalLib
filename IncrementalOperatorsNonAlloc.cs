@@ -96,13 +96,14 @@ namespace IncrementalLib
       Value -= other.Value;
       Normalize();
     }
-    
-    public void Subtract(double other)
+
+    /// <summary>
+    /// Returns the remainder of the division of Incremental <paramref name="a"/> by an int <paramref name="b"/>.
+    /// Converts the <see cref="Value"/> to an integer before performing the operation.
+    /// </summary>
+    public static int operator %(Incremental a, int b)
     {
-      Unpack();
-      
-      Value -= other;
-      Normalize();
+      return (int)a.Value % b;
     }
   }
 }
