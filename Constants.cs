@@ -13,6 +13,7 @@ namespace IncrementalLib
     /// </summary>
     public static readonly Dictionary<int, Unit> units = new Dictionary<int, Unit>
           {
+            { 0, new Unit("", "")},
             { 3, new Unit("Thousand", "k")},
             { 6, new Unit("Million", "m")},
             { 9, new Unit("Billion", "b")},

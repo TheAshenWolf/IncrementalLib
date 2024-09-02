@@ -110,6 +110,12 @@ namespace IncrementalLib
         /// </summary>
         public void Normalize()
         {
+            if (Value == 0)
+            {
+                Exponent = 0;
+                return;
+            }
+
             if (Value is > 0 and < 1 && Exponent > 0)
             {
                 Value *= TEN_CUBE;
@@ -183,30 +189,31 @@ namespace IncrementalLib
         /// </summary>
         public string ToString(DisplaySetting setting)
         {
-            Normalize();
+            Incremental value = new Incremental(this);
+            value.Normalize();
 
-            string sign = Negative ? "-" : "";
+            string sign = value.Negative ? "-" : "";
 
             Unit unit;
             switch (setting)
             {
                 case DisplaySetting.Abbreviation:
-                    if (Constants.units.TryGetValue(Exponent, out unit))
+                    if (Constants.units.TryGetValue(value.Exponent, out unit))
                     {
-                        return sign + Value.ToString("N1") + " " + unit.Abbrev;
+                        return sign + value.Value.ToString("N1") + " " + unit.Abbrev;
                     }
-                    return sign + Value.ToString("N1") + new Unit("a lot.", "e" + Exponent);
+                    return sign + value.Value.ToString("N1") + new Unit("e" + value.Exponent, "e" + value.Exponent);
 
                 case DisplaySetting.FullName:
-                    if (Constants.units.TryGetValue(Exponent, out unit))
+                    if (Constants.units.TryGetValue(value.Exponent, out unit))
                     {
-                        return sign + Value.ToString("N1") + " " + unit.Full;
+                        return sign + value.Value.ToString("N1") + " " + unit.Full;
                     }
-                    return sign + Value.ToString("N1") + new Unit("a lot.", "e" + Exponent);
+                    return sign + value.Value.ToString("N1") + new Unit("e" + value.Exponent, "e" + value.Exponent);
 
                 case DisplaySetting.Scientific:
                 default:
-                    return sign + Value.ToString("N1") + new Unit("a lot.", "e" + Exponent);
+                    return sign + value.Value.ToString("N1") + new Unit("e" + value.Exponent, "e" + value.Exponent);
             }
         }
     }

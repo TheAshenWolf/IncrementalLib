@@ -26,12 +26,23 @@
     /// </summary>
     public string Abbrev { get; }
 
+    public override string ToString()
+    {
+      return ToString(DisplaySetting.Abbreviation);
+    }
+
     /// <summary>
     /// Returns a string representation of the unit
     /// </summary>
-    public override string ToString()
+    public string ToString(DisplaySetting displaySetting)
     {
-      return Abbrev + " (" + Full + ")";
+      return displaySetting switch
+      {
+        DisplaySetting.Abbreviation => Abbrev,
+        DisplaySetting.FullName => Full,
+        DisplaySetting.Scientific => "",
+        _ => Abbrev
+      };
     }
   }
 }
