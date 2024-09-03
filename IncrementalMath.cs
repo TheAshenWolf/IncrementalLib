@@ -1,28 +1,28 @@
-﻿using UnityEngine;
-
-namespace IncrementalLib
+﻿namespace IncrementalLib
 {
     public partial class Incremental
     {
         public static Incremental Pow(Incremental a, int b)
         {
             if (b == 0) return new Incremental(1);
+            if (b == 1) return new Incremental(a);
 
-            Incremental result = new Incremental(a);
-            if (b == 1) return result;
+            Incremental result = new Incremental(1);
+            Incremental baseValue = new Incremental(a);
 
-            while (result.Exponent == 0 && b >= 2)
+            while (b > 0)
             {
-                result *= a;
-                b--;
+                if (b % 2 == 1)
+                {
+                    result *= baseValue;
+                }
+
+                baseValue *= baseValue;
+                b /= 2;
             }
 
-            if (b == 1) return result;
-
-            result.Exponent *= b;
             result.Normalize();
 
-            Debug.LogError(result);
             return result;
         }
 
