@@ -113,6 +113,7 @@ namespace IncrementalLib
             if (Value == 0)
             {
                 Exponent = 0;
+                Negative = false;
                 return;
             }
 
